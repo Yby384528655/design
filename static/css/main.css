@@ -1,0 +1,33 @@
+*{margin:0;padding:0;}
+html,body,#app,.wrapper{
+    width:100%;
+    height:100%;
+}
+body{
+    font-family:'microsoft yahei',arial,'Helvetica Neue',Helvetica,'STHeiTi',sans-serif;
+    font-size: 14px;
+}
+a{text-decoration: none}
+.content{
+    background:#fff;
+    box-sizing: border-box;
+    width: 100%;
+}
+.width1280{
+    width: 80%;
+    min-width: 1280px;
+    margin: 0 auto;
+
+}
+
+/*flex 上下居中*/
+.align_center{
+    -webkit-align-items:center;
+    align-items: center;
+}
+.flex{
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
