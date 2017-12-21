@@ -7,21 +7,37 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/login'
+            redirect: '/Home'
         },
         {
-            path: '/readme',
+            path: '/Home',
             component: resolve => require(['../components/common/Home.vue'], resolve),
             children:[
                 {
                     path: '/',
                     component: resolve => require(['../components/page/Readme.vue'], resolve)
                 },
+                {
+                    path: '/SearchList',
+                    component: resolve => require(['../components/page/result.vue'], resolve)
+                },
+                {
+                    path: '/task',
+                    component: resolve => require(['../components/page/NewTask.vue'], resolve)
+                },
+                {
+                    path: '/taskList',
+                    component: resolve => require(['../components/page/taskList.vue'], resolve)
+                },
+                {
+                    path: '/taskDetail',
+                    component: resolve => require(['../components/page/taskDetail.vue'], resolve)
+                },
+                {
+                    path: '/detail',
+                    component: resolve => require(['../components/page/detail.vue'], resolve)
+                },
             ]
-        },
-        {
-            path: '/login',
-            component: resolve => require(['../components/page/Login.vue'], resolve)
-        },
+        }
     ]
 })

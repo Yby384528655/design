@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="logo">
-            <img src='../../../static/img/logo.png'>
+            <img src='../../../../static/img/logo.png'>
         </div>
         <div class="cocial-link" >
             <a :href='html_cloudurl+"/system/index"'>外贸管理B2B</a><a href="http://b2c.joinf.com/erp#/erp/dashboard">跨境电商B2C</a><a href="https://sns.jonf.com">社交营销SNS</a><a href="https://b2bcn.joinf.com">B2B平台</a><a href="/">全球搜索</a>
@@ -76,7 +76,7 @@
         </div>
         <div class='userCommand'>
             <div class='userValidity'>
-                <a class='futongyun' :href='FutongyunUrl' target='_black'><img src='../../../static/img/userfutongyun.png'></a>
+                <a class='futongyun' :href='FutongyunUrl' target='_black'><img src='../../../../static/img/userfutongyun.png'></a>
             </div>
         </div>
 <!--         <div class='HomeTitle' style='float:left;'>
@@ -105,7 +105,7 @@
     </div>
 </template>
 <script>
-    import searchApi from '../common/api/searchApi'
+    import searchApi from '../api/searchApi'
     export default {
         data() {
             var validateOldPass = (rule, value, callback) => {      //密码验证
@@ -229,9 +229,9 @@
 </script>
 <style >
     .el-dropdown-menu{z-index:20000!important;max-height: 550px;overflow: auto;}
-    .header_menu{width:212px;font-size:14px;background:#fff url('../../../static/img/tms_center_back.png') no-repeat;left:auto!important;right:10px;padding:0;}
+    .header_menu{width:212px;font-size:14px;background:#fff url('../../../../static/img/tms_center_back.png') no-repeat;left:auto!important;right:10px;padding:0;}
     .header_menu li{width:106px;text-align:center;float:left;padding:0;}
-    .header_menu li span{width: 28px;height: 27px;background: url('../../../static/img/tms_common_system.png') no-repeat 0 -258px;display: inline-block;margin: 22px 34px 10px;}
+    .header_menu li span{width: 28px;height: 27px;background: url('../../../../static/img/tms_common_system.png') no-repeat 0 -258px;display: inline-block;margin: 22px 34px 10px;}
     .header_menu li:nth-child(1) span{background-position: 0 -88px;}
     .header_menu li:nth-child(3) span{background-position: 0 -135px;}
     .header_menu li:nth-child(4) span{background-position: 0 -203px;}
@@ -297,7 +297,7 @@
     }
     .userCommand .el-dropdown-link{
         display:inline-block;width:20px;height:18px;
-        background: url('../../../static/img/headmenu.png');
+        background: url('../../../../static/img/headmenu.png');
         margin:13px 11px;
         cursor:pointer;
     }
@@ -305,7 +305,7 @@
     .userCommand .userValidity span{margin:0;font-size: 14px;}
     .userCommand .userValidity .el-button{border:0;margin: 0 20px 0 10px;padding:0;position:relative;top:5px;}
     .userValidity a{display:inline-block;position:relative;top:5px;}
-    .userCommand .userValidity .el-button>span>span{display:inline-block;width:98px;height:25px;background: url('../../../static/img/tms_common_system.png');float:left;margin-left: 0;
+    .userCommand .userValidity .el-button>span>span{display:inline-block;width:98px;height:25px;background: url('../../../../static/img/tms_common_system.png');float:left;margin-left: 0;
     }
     .userCommand .userValidity_red{color:#f00;display:inline-block;min-width: 100px;}
     .userCommand .loginout{display:inline-block;cursor: pointer;height: 46px;line-height: 46px;padding:0 10px;font-size:14px;margin:0 10px 0 0;}
@@ -331,7 +331,7 @@
         float:left;
     }
     .userpopovermess ul li .popover-ico{
-        background: url(../../../static/img/tms_common_ico.png) -80px -540px no-repeat;
+        background: url(../../../../static/img/tms_common_ico.png) -80px -540px no-repeat;
         display: inline-block;
         position: relative;
         background-position: -105px -858px;
@@ -397,7 +397,7 @@
         height: 18px;
         margin: 13px 10px;
         cursor: pointer;
-        background: url('../../../static/img/userpopovericon.png') no-repeat;
+        background: url('../../../../static/img/userpopovericon.png') no-repeat;
     }
     .userCommangMessage span{
         position: absolute;

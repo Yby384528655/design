@@ -12,10 +12,12 @@ Vue.use(ElementUI);
 var defines={}
 
 if(process.env.NODE_ENV=='production'){
-	defines.html_url='http://qqy.joinf.com'
+	defines.html_url='http://192.168.10.18:29997'
+	defines.html_cloudurl='https://cloud.joinf.com'
 }
 if(process.env.NODE_ENV=='ceshiTest'||process.env.NODE_ENV=='development'){
-	defines.html_url='https://b2bsearch.joinf.com:8080'
+	defines.html_url='http://192.168.10.18:29997'
+    defines.html_cloudurl='https://ceshi.joinf.com'
 }
 // if(process.env.NODE_ENV=='development'){
 // 	defines.html_url='http://qqycn.joinf.com:8080'
@@ -30,6 +32,8 @@ import * as custom from './components/common/filters/utils'
 Object.keys(custom).forEach(key => {
     Vue.filter(key, custom[key])
 })
+import headerBox from './components/common/header/Header.js'
+Vue.use(headerBox);
 new Vue({
     router,
     render: h => h(App)

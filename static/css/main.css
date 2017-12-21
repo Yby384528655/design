@@ -2,6 +2,7 @@
 html,body,#app,.wrapper{
     width:100%;
     height:100%;
+    overflow:hidden;
 }
 body{
     font-family:'microsoft yahei',arial,'Helvetica Neue',Helvetica,'STHeiTi',sans-serif;
@@ -9,9 +10,16 @@ body{
 }
 a{text-decoration: none}
 .content{
-    background:#fff;
+    background: none repeat auto 0 0 #f9f9fa;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 46px;
+    bottom: 0;
+    width: auto;
+    padding: 0;
     box-sizing: border-box;
-    width: 100%;
+    overflow-y: scroll;
 }
 .width1280{
     width: 80%;
@@ -19,7 +27,19 @@ a{text-decoration: none}
     margin: 0 auto;
 
 }
+.width960{
+    width: 80%;
+    min-width: 960px;
+    margin: 0 auto;
 
+}
+.mWidth664{
+    min-width: 664px;
+    margin:0 auto;
+}
+.fl{float: left;}
+.fr{float:right;}
+.cl{clear:both;}
 /*flex 上下居中*/
 .align_center{
     -webkit-align-items:center;
@@ -30,4 +50,23 @@ a{text-decoration: none}
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
+}
+
+/*icon 添加*/
+.el-icon-clear{
+    display: inline-block;
+    width: 14px;
+    height:14px;
+    background: url('../img/icon_clear1.png') no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    top:3px ;
+}
+.el-button:hover .el-icon-clear{
+    background: url('../img/icon_clear.png') no-repeat;
+    background-size: 100% 100%;
+}
+.el-button:focus .el-icon-clear{
+    background: url('../img/icon_clear.png') no-repeat;
+    background-size: 100% 100%;
 }
