@@ -36,7 +36,21 @@
 				<el-table-column prop="mailCount" label="邮箱数量"></el-table-column>
 			</el-table>
 			<el-pagination background layout="prev, pager, next, jumper" :current-page='currentPage' :total="totalNum" @current-change='currentChange'></el-pagination>
-
+        </div>
+        <div class='messBoxBg' v-if='messBoxCont' @click.stop='messBoxCont=false'>
+        	<div class='messBox' @click.stop='returnFalse'>
+        		<div class='messBoxtitle'>
+        			<p>{{isDelete==1?"删除确认":"清空确认"}}<span @click.stop='messBoxCont=false'><i class='el-icon-close'></i></span></p>
+        		</div>
+        		<div class='messBoxCont'>
+        			<p><span><i class='el-icon-warning'></i></span>{{isDelete==1?"确定删除已选择的搜索任务，此操作不可逆!":"确定清空所有的搜索任务，此操作不可逆!"}}</p>
+        		</div>
+        		<div class='messBoxBtn'>
+        			<el-button @click.stop='messBoxCont=false'>取消</el-button>
+        			<el-button type='primary' icon='el-icon-delete' v-if='isDelete==1' @click.stop='deleteDetail'>删除</el-button>
+        			<el-button type='primary' icon='el-icon-clear' v-else @click.stop='ClearDetail'>清空</el-button>
+        		</div>
+        	</div>
         </div>
 	</div>
 </template>
@@ -55,6 +69,9 @@
         		totalNum:0,
         		taskword:'',
         		languages:'',
+        		messBoxCont:false,
+        		isDelete:1,
+        		orgIdList:[],
         	}
         },
         watch:{
@@ -81,16 +98,16 @@
 			}
 		},
         methods:{
+        	returnFalse(){
+        		return;
+        	},
         	ClearList(){
-        		this.$confirm('确定清空所有的搜索任务，此操作不可逆!', '清空确认', {
-		          confirmButtonText: '确定',
-		          cancelButtonText: '取消',
-		          type: 'warning'
-		        }).then(() => {
-		          
-		        }).catch(() => {
-		          this.$message({type: 'info',message: '已取消清空'});          
-		        });
+        		this.messBoxCont=true;
+        		this.isDelete=2;
+        	},
+        	ClearDetail(){
+        		console.log(22222);
+    			this.messBoxCont=false;
         	},
         	deleteList(){
 				if(this.multipleTable.length==0){
@@ -103,26 +120,23 @@
 						orgIdList.push(this.multipleTable[i].id);
 					}
 				}
-				this.$confirm('确定删除已选择的搜索任务，此操作不可逆!', '删除确认', {
-		          confirmButtonText: '确定',
-		          cancelButtonText: '取消',
-		          type: 'warning'
-		        }).then(() => {
-		          searchApi.deleteTask({id:orgIdList}).then((data)=>{
-		          	let datalist=data.data;
-		          	if(datalist.code==0){
-			          	this.$message({type: 'success',message: '删除成功' }); 
-				        this.getdata();
-		          	}else{
-			          	this.$message({ type: 'error',message: datalist.msg }); 
-		          	}
-		          },(error)=>{
-		          	this.$message({type: 'error',message: error});   
-		          })
-		        }).catch(() => {
-		          this.$message({type: 'info',message: '已取消删除'});          
-		        });
-
+				this.orgIdList=orgIdList;
+        		this.messBoxCont=true;
+        		this.isDelete=1;
+        	},
+        	deleteDetail(){
+	          searchApi.deleteTask({id:this.orgIdList}).then((data)=>{
+	          	let datalist=data.data;
+	          	if(datalist.code==0){
+		          	this.$message({type: 'success',message: '删除成功' }); 
+        			this.messBoxCont=false;
+			        this.getdata();
+	          	}else{
+		          	this.$message({ type: 'error',message: datalist.msg }); 
+	          	}
+	          },(error)=>{
+	          	this.$message({type: 'error',message: error});   
+	          })
         	},
         	rowClick(val, event, column){
 				if(column.type=='selection'){
@@ -173,9 +187,18 @@
     }
 </script>
 <style>
-.taskListButton {margin-bottom: 20px;}
-.taskListButton .el-button{margin-left: 20px;}
-.taskListButton>span{color:#666;line-height: 36px;}
+	.taskListButton {margin-bottom: 20px;}
+	.taskListButton .el-button{margin-left: 20px;}
+	.taskListButton>span{color:#666;line-height: 36px;}
+	.messBoxBg{position: fixed;left:0;top:0;background: rgba(0,0,0,.3);width: 100%;height: 100%;z-index: 10;}
+	.messBox{width: 42%;position: absolute;left:29%;background: #fff;height:232px;top:50%;margin-top: -116px;}
+	.messBoxtitle{height:48px;background: -prefix-linear-gradient(left, #0a86ff, #4bc3ff);background: linear-gradient(to right, #0a86ff, #4bc3ff); }
+	.messBoxtitle p{padding-left:20px; color:#fff;line-height: 48px;font-size: 16px;}
+	.messBoxtitle p span{display: inline-block;width: 48px;height: 48px;float: right;text-align: center;cursor: pointer;}
+	.messBoxCont{text-align: center;padding-top: 40px;}
+	.messBoxCont p{line-height: 20px;font-size: 16px;}
+	.messBoxCont p span{padding-right: 20px;font-size: 20px;color:#ff4545;}
+	.messBoxBtn{position: absolute;bottom:20px;text-align: right;padding-right: 20px;box-sizing:border-box;width:100%;}
 </style>
 <style>
 	.taskList .el-table__body-wrapper{cursor: pointer;}

@@ -70,3 +70,15 @@ a{text-decoration: none}
     background: url('../img/icon_clear.png') no-repeat;
     background-size: 100% 100%;
 }
+.el-button--primary .el-icon-clear{
+    background: url('../img/icon_clear_white.png') no-repeat;
+    background-size: 100% 100%;
+}
+.el-button--primary:hover .el-icon-clear{
+    background: url('../img/icon_clear_white.png') no-repeat;
+    background-size: 100% 100%;
+}
+.el-button--primary:focus .el-icon-clear{
+    background: url('../img/icon_clear_white.png') no-repeat;
+    background-size: 100% 100%;
+}
