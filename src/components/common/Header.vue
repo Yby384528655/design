@@ -48,7 +48,7 @@
                 <el-dropdown-item command='usercenter'><span></span>用户中心</el-dropdown-item>
                 <el-dropdown-item command='suggest'><span></span>意见反馈</el-dropdown-item>
                 <el-dropdown-item command='help'><span></span>帮助中心</el-dropdown-item>
-                <el-dropdown-item command='changepwds'><p>修改密码</p></el-dropdown-item>
+                <!-- <el-dropdown-item command='changepwds'><p>修改密码</p></el-dropdown-item> -->
                 <el-dropdown-item command='loginout'><p>退出登录</p></el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -79,10 +79,7 @@
                 <a class='futongyun' :href='FutongyunUrl' target='_black'><img src='../../../static/img/userfutongyun.png'></a>
             </div>
         </div>
-<!--         <div class='HomeTitle' style='float:left;'>
-            <p>全球搜索</p>
-        </div> -->
-        <div class='changepwdbg' v-if='changepwd'></div>
+<!--         <div class='changepwdbg' v-if='changepwd'></div>
         <div class='changepwd' v-if='changepwd'>
             <span class='goclose' @click='closechangepwd'><i class='el-icon-close'></i></span>
             <p class='pwdtitle'>修改密码</p>
@@ -101,61 +98,61 @@
                     <el-button @click="closechangepwd">取消</el-button>
                 </el-form-item>
             </el-form>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
     import searchApi from '../common/api/searchApi'
     export default {
         data() {
-            var validateOldPass = (rule, value, callback) => {      //密码验证
-                if (value === '') {
-                    callback(new Error('请输入原密码'));
-                }else if(value.length<6||value.length>50){
-                    callback(new Error('密码长度不正确，6-50字符之间'));
-                }else{
-                    callback();
-                }
-            };
-            var validatePass = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入密码'));
-                }else if(value.length<6||value.length>50){
-                    callback(new Error('密码长度不正确，6-50字符之间'));
-                } else {
-                    if (this.form.checkPwd !== '') {
-                        this.$refs.form.validateField('checkPwd');
-                    }
-                    callback();
-                }
-            };
-            var validatePass2 = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请再次输入密码'));
-                } else if (value !== this.form.newpwd) {
-                    callback(new Error('两次输入密码不一致!'));
-                } else {
-                    callback();
-                }
-            };
+            // var validateOldPass = (rule, value, callback) => {      //密码验证
+            //     if (value === '') {
+            //         callback(new Error('请输入原密码'));
+            //     }else if(value.length<6||value.length>50){
+            //         callback(new Error('密码长度不正确，6-50字符之间'));
+            //     }else{
+            //         callback();
+            //     }
+            // };
+            // var validatePass = (rule, value, callback) => {
+            //     if (value === '') {
+            //         callback(new Error('请输入密码'));
+            //     }else if(value.length<6||value.length>50){
+            //         callback(new Error('密码长度不正确，6-50字符之间'));
+            //     } else {
+            //         if (this.form.checkPwd !== '') {
+            //             this.$refs.form.validateField('checkPwd');
+            //         }
+            //         callback();
+            //     }
+            // };
+            // var validatePass2 = (rule, value, callback) => {
+            //     if (value === '') {
+            //         callback(new Error('请再次输入密码'));
+            //     } else if (value !== this.form.newpwd) {
+            //         callback(new Error('两次输入密码不一致!'));
+            //     } else {
+            //         callback();
+            //     }
+            // };
             return {
-                rules2: {           //密码验证
-                    newpwd: [
-                    { validator: validatePass, trigger: 'blur' }
-                    ],
-                    checkPwd: [
-                    { validator: validatePass2, trigger: 'blur' }
-                    ],
-                    oldpwd: [
-                    { validator: validateOldPass, trigger: 'blur' }
-                    ]
-                },
-                form:{
-                    oldpwd:'',
-                    newpwd:'',
-                    checkPwd:''
-                },
-                changepwd:false,            //修改密码
+                // rules2: {           //密码验证
+                //     newpwd: [
+                //     { validator: validatePass, trigger: 'blur' }
+                //     ],
+                //     checkPwd: [
+                //     { validator: validatePass2, trigger: 'blur' }
+                //     ],
+                //     oldpwd: [
+                //     { validator: validateOldPass, trigger: 'blur' }
+                //     ]
+                // },
+                // form:{
+                //     oldpwd:'',
+                //     newpwd:'',
+                //     checkPwd:''
+                // },
+                // changepwd:false,            //修改密码
                 name: 'We',
                 UserpopoverSys:false,
                 userpopoverMessage:[],
@@ -172,36 +169,36 @@
             msgisallread(){
                 return;
             },
-            goChangePassword(val){          //修改密码
-                this.$refs[val].validate((valid) => {
-                if (valid) {
-                    searchApi.changePassword({oldPassword:this.form.oldpwd,newPassword:this.form.newpwd}).then((data)=>{
-                        let datalist=data.data;
-                        if(datalist.code==0){
-                            this.Ischangepwd(data);
-                        }else{
-                            this.$message({message:datalist.msg,type:'error'});
-                        }
-                    })
-                } else {
-                    return;
-                }
-                });
-            },
-            Ischangepwd(response){              //修改密码
-                this.changepwd=false;
-                this.$alert('密码修改成功！', '提示', {
-                  confirmButtonText: '确定',
-                  callback: action => {
-                  }
-                });
-            },
-            closechangepwd(){           //修改密码关闭
-                this.changepwd=false;
-                this.form.newpwd='';
-                this.form.oldpwd='';
-                this.form.checkPwd='';
-            },
+            // goChangePassword(val){          //修改密码
+            //     this.$refs[val].validate((valid) => {
+            //     if (valid) {
+            //         searchApi.changePassword({oldPassword:this.form.oldpwd,newPassword:this.form.newpwd}).then((data)=>{
+            //             let datalist=data.data;
+            //             if(datalist.code==0){
+            //                 this.Ischangepwd(data);
+            //             }else{
+            //                 this.$message({message:datalist.msg,type:'error'});
+            //             }
+            //         })
+            //     } else {
+            //         return;
+            //     }
+            //     });
+            // },
+            // Ischangepwd(response){              //修改密码
+            //     this.changepwd=false;
+            //     this.$alert('密码修改成功！', '提示', {
+            //       confirmButtonText: '确定',
+            //       callback: action => {
+            //       }
+            //     });
+            // },
+            // closechangepwd(){           //修改密码关闭
+            //     this.changepwd=false;
+            //     this.form.newpwd='';
+            //     this.form.oldpwd='';
+            //     this.form.checkPwd='';
+            // },
             usercommond(command) {
                 if(command=='loginout'){
                     // this.ajax(this.html_url+'/common/logout','get',{},this.Isusercommond);
@@ -210,8 +207,8 @@
                     window.location.href=this.html_cloudurl+'/corporation/manage_user_company'
                 }else if(command=='usercenter'){
                     window.location.href=this.html_cloudurl+'/userCenter/accountInfo'
-                }else if(command=='changepwds'){
-                    this.changepwd=true;
+                // }else if(command=='changepwds'){
+                //     this.changepwd=true;
                 }else if(command=='suggest'){
                     var window1=window.open('about:blank',);
                     let timeout=setTimeout(()=>{
@@ -235,7 +232,7 @@
     .header_menu li:nth-child(1) span{background-position: 0 -88px;}
     .header_menu li:nth-child(3) span{background-position: 0 -135px;}
     .header_menu li:nth-child(4) span{background-position: 0 -203px;}
-    .header_menu li:nth-child(5){border-top: 1px solid #e9f3f8;background: #f7fcff;}
+    .header_menu li:nth-child(5){border-top: 1px solid #e9f3f8;background: #f7fcff;width:100%;}
     .header_menu li:last-child{border-top: 1px solid #e9f3f8;background: #f7fcff;}
     .header_menu li p{height:17px;line-height: 17px;display:inline-block;width:100%;box-sizing:border-box;}
     .header_menu li:last-child p{border-left:1px solid #e9f3f8;}

@@ -56,16 +56,28 @@
           return Http.post(Vue.prototype.html_url+'/task/delete',params);
      },
      /**
+     * 清空任务
+     */
+     deleteAllTask(params){
+          return Http.get(Vue.prototype.html_url+'/task/deleteAll');
+     },
+     /**
      * 修改密码
      */
-     changePassword(params){
-          return Http.post(Vue.prototype.html_url+'/supplier/saas/changePasswordJson',params);
-     },
+     // changePassword(params){
+     //      return Http.post(Vue.prototype.html_url+'/supplier/saas/changePasswordJson',params);
+     // },
      /**
      * 退出登陆
      */
      loginout(params){
           return Http.post(Vue.prototype.html_url+'/common/logout');
+     },
+     /**
+     * edm邮件发送
+     */
+     edmEmail(params){
+          return Http.post(Vue.prototype.EDM_url+'/email/createEmailRecipients',params);
      },
 
 

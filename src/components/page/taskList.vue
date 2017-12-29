@@ -67,7 +67,7 @@
         		multipleTable:[],
         		currentPage:1,
         		totalNum:0,
-        		taskword:'',
+        		keywords:'',
         		languages:'',
         		messBoxCont:false,
         		isDelete:1,
@@ -82,11 +82,11 @@
 		        }else{
 	        		this.currentPage=1;
 		        }
-		        let taskword=this.$route.query.taskword;
-		        if(taskword!=""&&taskword!=null&&taskword!=undefined){
-	        		this.taskword=taskword;
+		        let keywords=this.$route.query.keywords;
+		        if(keywords!=""&&keywords!=null&&keywords!=undefined){
+	        		this.keywords=keywords;
 		        }else{
-	        		this.taskword='';
+	        		this.keywords='';
 		        }
 		        let languages=this.$route.query.languages;
 		        if(languages!=""&&languages!=null&&languages!=undefined){
@@ -106,8 +106,17 @@
         		this.isDelete=2;
         	},
         	ClearDetail(){
-        		console.log(22222);
     			this.messBoxCont=false;
+    			searchApi.deleteAllTask().then((data)=>{
+    				let datalist=data.data;
+		          	if(datalist.code==0){
+			          	this.$message({type: 'success',message: '删除成功' }); 
+	        			this.messBoxCont=false;
+	        			this.currentChange(1);
+		          	}else{
+			          	this.$message({ type: 'error',message: datalist.msg }); 
+		          	}
+    			})
         	},
         	deleteList(){
 				if(this.multipleTable.length==0){
@@ -148,10 +157,10 @@
         		this.multipleTable=val;
         	},
 			currentChange(val){
-				this.$router.push({path:'/taskList',query:{currentPage:val,keywords:this.taskword,languages:this.languages}})
+				this.$router.push({path:'/taskList',query:{currentPage:val,keywords:this.keywords,languages:this.languages}})
 			},
 			getdata(){
-				let params='pageIndex='+this.currentPage+'&pageSize=10&keywords='+this.taskword+'&languages='+this.languages;
+				let params='pageIndex='+this.currentPage+'&pageSize=10&keywords='+this.keywords+'&languages='+this.languages;
 				searchApi.taskList(params).then((data)=>{
 					let datalist=data.data;
 					if(datalist.code==0){
@@ -170,11 +179,11 @@
 	        }else{
         		this.currentPage=1;
 	        }
-	        let taskword=this.$route.query.taskword;
-	        if(taskword!=""&&taskword!=null&&taskword!=undefined){
-        		this.taskword=taskword;
+	        let keywords=this.$route.query.keywords;
+	        if(keywords!=""&&keywords!=null&&keywords!=undefined){
+        		this.keywords=keywords;
 	        }else{
-        		this.taskword='';
+        		this.keywords='';
 	        }
 	        let languages=this.$route.query.languages;
 	        if(languages!=""&&languages!=null&&languages!=undefined){

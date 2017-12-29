@@ -114,6 +114,15 @@
 					return;
 				}
 				console.log(orgIdList);
+				searchApi.edmEmail({recipient:orgIdList}).then((data)=>{
+					let datalist=data.data;
+					if(datalist.success){
+						window.open(datalist.data);
+						// window.open('https://test.joinf.com:22222/write?dataId=20925dce-1028-4c03-ab3f-e630699e8711');
+					}else{
+						this.$message({message:datalist.message,type:'error'});
+					}
+				})
 			},
 			getEmail(){
 				searchApi.getEmail({orgId:[this.companyId]}).then((data)=>{

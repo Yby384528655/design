@@ -12,12 +12,14 @@ Vue.use(ElementUI);
 var defines={}
 
 if(process.env.NODE_ENV=='production'){
-	defines.html_url='http://192.168.10.18:29997'
-	defines.html_cloudurl='https://cloud.joinf.com'
+	defines.html_url='http://192.168.10.18:29997';
+	defines.html_cloudurl='https://cloud.joinf.com';
+	defines.EDM_url='https://edmsys.joinf.com:28888';
 }
 if(process.env.NODE_ENV=='ceshiTest'||process.env.NODE_ENV=='development'){
-	defines.html_url='http://192.168.10.18:29997'
-    defines.html_cloudurl='https://ceshi.joinf.com'
+	defines.html_url='http://192.168.10.18:29997';
+    defines.html_cloudurl='https://ceshi.joinf.com';
+	defines.EDM_url='https://test.joinf.com:8805';
 }
 // if(process.env.NODE_ENV=='development'){
 // 	defines.html_url='http://qqycn.joinf.com:8080'

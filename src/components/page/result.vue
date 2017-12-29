@@ -127,9 +127,18 @@
 				for(var i=0;i<this.multipleTable.length;i++){
 					if(this.multipleTable[i].obtained&&this.multipleTable[i].mails!=null){
 						// orgIdList.push(this.multipleTable[i].id);
-						orgIdList.concat( this.multipleTable[i].mails );
+						orgIdList=orgIdList.concat( this.multipleTable[i].mails );
 					}
 				}
+				searchApi.edmEmail({recipient:orgIdList}).then((data)=>{
+					let datalist=data.data;
+					if(datalist.success){
+						window.open(datalist.data);
+						// window.open('https://test.joinf.com:22222/write?dataId=20925dce-1028-4c03-ab3f-e630699e8711');
+					}else{
+						this.$message({message:datalist.message,type:'error'});
+					}
+				})
 			},
 			getCheckedEmail(){
 				if(this.multipleTable.length==0){
@@ -145,11 +154,19 @@
 				searchApi.getEmail({"orgId":orgIdList}).then((data)=>{
 					let datalist=data.data;
 					if(datalist.code==0){
-						for(var i=0;i<this.searchLists.length;i++){
-							for(var j=0;j<orgIdList.length;j++){
+						for(var j=0;j<orgIdList.length;j++){
+							for(var i=0;i<this.searchLists.length;i++){
 								if(this.searchLists[i].id==orgIdList[j]){
 									this.searchLists[i].obtained=true;
 									this.searchLists[i].mailCount=datalist.data[j].mails.length;
+									this.searchLists[i].mails=datalist.data[j].mails;
+								}
+							}
+							for(var k=0;k<this.multipleTable.length;k++){
+								if(this.multipleTable[k].id==orgIdList[j]){
+									this.multipleTable[k].obtained=true;
+									this.multipleTable[k].mailCount=datalist.data[j].mails.length;
+									this.multipleTable[k].mails=datalist.data[j].mails;
 								}
 							}
 						}
@@ -167,6 +184,10 @@
 					if(datalist.code==0){
 						this.searchLists[index].obtained=true;
 						this.searchLists[index].mailCount=datalist.data[0].mails.length;
+						this.searchLists[index].mails=datalist.data[0].mails;
+						this.multipleTable[index].obtained=true;
+						this.multipleTable[index].mailCount=datalist.data[0].mails.length;
+						this.multipleTable[index].mails=datalist.data[0].mails;
 					}else{
 						this.$message({message:datalist.msg,type:"error"});
 					}
