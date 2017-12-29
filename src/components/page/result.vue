@@ -9,16 +9,23 @@
 			</div>
 			<el-table ref="multipleTable" :data="searchLists" stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" @row-click='rowClick'>
 				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column label="公司名称" width="200">
+<!-- 				<el-table-column label="公司名称" width="200">
 					<template slot-scope="scope">
 						<div class='companyName'>
 					  		<p :title='scope.row.name'>{{ scope.row.name }}</p>
 					  		<img src='../../../static/img/iscustomer.png' v-if='scope.row.customerId'>
 					  	</div>
 				  	</template>
+				</el-table-column> -->
+				<el-table-column label="主页" width="300">
+					<template slot-scope="scope">
+						<div class='website'>
+							<p :title='scope.row.webSite'>{{ scope.row.webSite }}</p>
+						</div>
+					</template>
 				</el-table-column>
 				<el-table-column prop="country" label="国家"></el-table-column>
-				<el-table-column prop="city" label="城市"></el-table-column>
+<!-- 				<el-table-column prop="city" label="城市"></el-table-column>
 				<el-table-column prop="industrys" label="行业"></el-table-column>
 				<el-table-column label="主页" width="200">
 					<template slot-scope="scope">
@@ -26,7 +33,7 @@
 							<p :title='scope.row.webSite'>{{ scope.row.webSite }}</p>
 						</div>
 					</template>
-				</el-table-column>
+				</el-table-column> -->
 				<el-table-column prop="mailCount" label="邮箱数量"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
@@ -181,7 +188,8 @@
 				this.multipleTable=val;
 			},
 			currentChange(val){
-				this.$router.push({path:'/searchList',query:{keywords:this.keywords,industrys:this.industrys,countrys:this.countrys,haveWebSite:this.haveWebSite,currentPage:val}})
+				// industrys:this.industrys,,haveWebSite:this.haveWebSite
+				this.$router.push({path:'/searchList',query:{keywords:this.keywords,countrys:this.countrys,currentPage:val}})
 				console.log(val);
 			},
 			getdata(){
